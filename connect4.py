@@ -1,5 +1,6 @@
 from board import *
 from utility import *
+import pdb
 
 class Play:
     def __init__(self):
@@ -7,10 +8,15 @@ class Play:
         self.utilities = Utility(self.board)
 
     def play(self):
-        [insertionRow, insertionCol] = self.board.insert_piece('X', 3)
-        length = self.board.get_length()
-        print(length)
-        print(self.utilities.check_if_edge(insertionRow+1, insertionCol))
+        [insertionY, insertionX] = self.board.insert_piece('X', 3)
+        nearEdges = self.utilities.check_if_edge(insertionY, insertionX)
+        self.utilities.check_potential_win_directions(insertionY, insertionX, nearEdges, 'X')
+        print(insertionY)
+        [insertionY, insertionX] = self.board.insert_piece('X', 3)
+        nearEdges = self.utilities.check_if_edge(insertionY, insertionX)
+        print(self.board.get_length() - 1)
+        print(nearEdges)
+        print(self.utilities.check_potential_win_directions(insertionY, insertionX, nearEdges, 'X'))
         self.board.print_board()
 
 

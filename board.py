@@ -5,45 +5,40 @@ class Board:
         self.length = length
         self.width = width
         self.board = [['-' for i in range(self.width)] for j in range(self.length)]
-    def insert_piece(self, team, column):
-        insertionRow = -1
-        insertionColumn = -1
-        for row in range(self.length):
-            if self.get_square(row, column) == '-':
-                insertionRow = row
-                insertionColumn = column
-        if insertionRow == -1 and insertionColumn == -1:
-           return 0
-        self.set_square(insertionRow, insertionColumn, team)
-        return 1
+
+    def insert_piece(self, team: str, xInd):
+        insertionY = -1
+        insertionX = -1
+        for yInd in range(self.length):
+            if self.get_square(yInd, xInd) == '-':
+                insertionY = yInd
+                insertionX = xInd
+        if insertionY == -1 and insertionX == -1:
+           return []
+        self.set_square(insertionY, insertionX, team)
+        return [insertionY, insertionX]
 
     def get_board(self):
         return self.board
 
     def get_length(self):
-        return self.length
+        return self.length #note that this is +1 on the index  
 
     def get_width(self):
         return self.width
 
-    def get_square(self, length, width):
-        return self.board[length][width]
+    def get_square(self, yInd, xInd):
+        return self.board[yInd][xInd]
 
-    def set_square(self, length, width, value):
-        self.board[length][width] = value
+    def set_square(self, yInd, xInd, value: str):
+        self.board[yInd][xInd] = value
 
     def print_board(self):
         for ind, spots in enumerate(self.get_board()):
             for spot in spots:
                 print(spot, end = " ")
             print("\n")
-        for column in range(self.width):
-            print(chr(column + ord('A')), end = " ")
+        for xInd in range(self.width):
+            print(chr(xInd + ord('A')), end = " ")
                     
-b = Board(6,10)
-b.insert_piece('X', 4)
-b.insert_piece('X', 4)
-b.insert_piece('X', 4)
-b.insert_piece('X', 3)
-b.print_board()
 

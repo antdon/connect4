@@ -5,47 +5,44 @@ class Utility:
     def __init__(self, board):
         self.board = board
 
-    def check_full(self, column):
+    def check_full(self, xInd):
         board = self.board 
         if board[0][column] == '-':
             return False
         else:
             return True
 
-    def check_if_edge(self, insRow: int, insCol: int) -> List[str]:
+    def check_if_edge(self, insY: int, insX: int) -> List[str]:
         edgeCollisions = []
-        if insRow == 0:
+        if insY == 0:
             edgeCollisions.append('N')
-        elif insRow == self.board.get_length():
+        elif insY == self.board.get_length() - 1:
             edgeCollisions.append('S')
-        if insCol == 0:
+        if insX == 0:
             edgeCollisions.append('E')
-        elif insCol == self.board.get_width():
+        elif insX == self.board.get_width() - 1:
             edgeCollisions.append('W')
 
         return edgeCollisions
 
-#   def check_win_directions(self, insRow, insCol):
-#       NisEdge = False
-#       potentialDirections = []
-#       team = board[insRow][insCol]
-#       if insRow == self.get_width() or insCol == self.get_length:
-#           isEdge = True
-#       if board[insRow][insCol - 1] == team:
-#           potentialDirections.append('W')
-#       if board[insRow][insCol + 1] == team:
-#           potentialDirections.append('E')
-#       if board[insRow + 1][insCol] == team:
-#           potentialDirections.append('N')
-#       if board[insRow - 1][insCol] == team:
-#           potentialDirections.append('S')
-#       if board[insRow + 1][insCol + 1] == team:
-#           potentialDirections.append('NE')
-#       if board[insRow - 1][insCol + 1] == team:
-#           potentialDirections.append('SE')
-#       if board[insRow - 1][insCol - 1] == team:
-#           potentialDirections.append('SW')
-#       if board[insRow + 1][insCol - 1] == team:
-#           potentialDirections.append('NW')
+    def check_potential_win_directions(self, insY: int, insX: int, dontCheck: List[str], team: str) -> List[str]:
+        potentialDirections = []
+        if not 'W' in dontCheck and self.board.get_square(insY, insX - 1) == team:
+            potentialDirections.append('W')
+        if not 'E' in dontCheck and self.board.get_square(insY, insX + 1) == team:
+            potentialDirections.append('E')
+        if not 'N' in dontCheck and self.board.get_square(insY - 1, insX) == team:
+            potentialDirections.append('N')
+        if not 'S' in dontCheck and self.board.get_square(insY + 1, insX) == team:
+            potentialDirections.append('S')
+        if not 'N' in dontCheck and not 'E' in dontCheck and self.board.get_square(insY - 1, insX + 1) == team:
+            potentialDirections.append('NE')
+        if not 'S' in dontCheck and not 'E' in dontCheck and self.board.get_square(insY + 1, insX + 1) == team:
+            potentialDirections.append('SE')
+        if not 'S' in dontCheck and not 'W' in dontCheck and self.board.get_square(insY + 1, insX - 1) == team:
+            potentialDirections.append('SW')
+        if not 'N' in dontCheck and not 'W' in dontCheck and self.board.get_square(insY - 1, insX - 1) == team:
+            potentialDirections.append('NW')
+        return potentialDirections
 
 

@@ -10,9 +10,9 @@ class Board:
         self.utilities = Utility(self.board)
 
     def insert_piece(self, team: str, xInd):
-        if(self.utilities.check_full()):
-            print("this column is full" file=sys.stderr)
-            return []
+        if(self.utilities.check_full(xInd)):
+            print("this column is full", file=sys.stderr)
+            return [-1, -1]
         insertionY = -1
         insertionX = -1
         for yInd in range(self.length):
@@ -20,7 +20,7 @@ class Board:
                 insertionY = yInd
                 insertionX = xInd
         if insertionY == -1 and insertionX == -1:
-           return []
+           return [-1, -1]
         self.set_square(insertionY, insertionX, team)
         return [insertionY, insertionX]
 

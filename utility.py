@@ -24,6 +24,29 @@ class Utility:
             edgeCollisions.append('W')
 
         return edgeCollisions
+    
+    def check_win(self, insY: int, insX: int, team: str) -> bool:
+        dontCheck: List[str] = self.check_if_edge(insY, insX)
+        potentialDirections = self.check_potential_win_directions(insY, insX, dontCheck, team)
+        for direction in potentialDirections:
+            if direction == 'N' and self.check_north(insY, insX, team):
+                return True
+            elif direction == 'S' and self.check_south(insY,  insX, team):
+                return True
+            elif direction == 'E' and self.check_east(insY,  insX, team):
+                return True
+            elif direction == 'W' and self.check_west(insY,  insX, team):
+                return True
+            elif direction == 'NE' and self.check_north_east(insY,  insX, team):
+                return True
+            elif direction == 'NW' and self.check_north_west(insY,  insX, team):
+                return True
+            elif direction == 'SE' and self.check_south_east(insY,  insX, team):
+                return True
+            elif direction == 'SW' and self.check_south_east(insY,  insX, team):
+                return True
+        return False
+
 
     def check_potential_win_directions(self, insY: int, insX: int, dontCheck: List[str], team: str) -> List[str]:
         potentialDirections = []
@@ -44,5 +67,80 @@ class Utility:
         if not 'N' in dontCheck and not 'W' in dontCheck and self.board.get_square(insY - 1, insX - 1) == team:
             potentialDirections.append('NW')
         return potentialDirections
+
+    def check_north(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insY
+        for ind in range(4):
+            if self.board.get_square(tmp, insX) != team:
+                return False
+            tmp -= 1
+        return True
+
+    def check_south(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insY
+        for ind in range(4):
+            if self.board.get_square(tmp, insX) != team:
+                return False
+            tmp += 1
+        return True
+
+    def check_east(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        for ind in range(4):
+            if self.board.get_square(insY, tmp) != team:
+                return False
+            tmp += 1
+        return True
+
+    def check_west(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        for ind in range(4):
+            if self.board.get_square(insY, tmp) != team:
+                return False
+            tmp -= 1
+        return True
+
+    def check_north_east(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        tmp2 = insY
+        for ind in range(4):
+            if self.board.get_square(tmp2, tmp) != team:
+                return False
+            tmp -= 1
+            tmp2 += 1
+        return True
+
+    def check_north_west(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        tmp2 = insY
+        for ind in range(4):
+            if self.board.get_square(tmp2, tmp) != team:
+                return False
+            tmp -= 1
+            tmp2 -= 1
+        return True
+
+    def check_south_west(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        tmp2 = insY
+        for ind in range(4):
+            if self.board.get_square(tmp2, tmp) != team:
+                return False
+            tmp += 1
+            tmp2 -= 1
+        return True
+
+    def check_south_east(self, insY: int, insX: int, team: str) -> bool:
+        tmp = insX
+        tmp2 = insY
+        for ind in range(4):
+            if self.board.get_square(insY, insY) != team:
+                return False
+            tmp += 1
+            tmp2 += 1
+        return True
+            
+        
+
 
 

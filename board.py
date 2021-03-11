@@ -1,12 +1,18 @@
 import pdb
+from utility import *
+import sys
 
 class Board:
     def __init__(self, length, width):
         self.length = length
         self.width = width
         self.board = [['-' for i in range(self.width)] for j in range(self.length)]
+        self.utilities = Utility(self.board)
 
     def insert_piece(self, team: str, xInd):
+        if(self.utilities.check_full()):
+            print("this column is full" file=sys.stderr)
+            return []
         insertionY = -1
         insertionX = -1
         for yInd in range(self.length):

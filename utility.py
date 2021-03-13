@@ -152,7 +152,7 @@ class Utility:
             tmp2 += 1
             if tmp == self.board.get_width() or tmp2 == self.board.get_length():
                 return False
-            if self.board.get_square(insY, insY) != team:
+            if self.board.get_square(tmp2, tmp) != team:
                 return False
         return True
             

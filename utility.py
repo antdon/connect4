@@ -19,9 +19,9 @@ class Utility:
         elif insY == self.board.get_length() - 1:
             edgeCollisions.append('S')
         if insX == 0:
-            edgeCollisions.append('E')
-        elif insX == self.board.get_width() - 1:
             edgeCollisions.append('W')
+        elif insX == self.board.get_width() - 1:
+            edgeCollisions.append('E')
 
         return edgeCollisions
     
@@ -43,7 +43,7 @@ class Utility:
                 return True
             elif direction == 'SE' and self.check_south_east(insY,  insX, team):
                 return True
-            elif direction == 'SW' and self.check_south_east(insY,  insX, team):
+            elif direction == 'SW' and self.check_south_west(insY,  insX, team):
                 return True
         return False
 
@@ -71,89 +71,89 @@ class Utility:
     def check_north(self, insY: int, insX: int, team: str) -> bool:
         tmp = insY
         for ind in range(3):
+            tmp -= 1
             if tmp == 0:
                 return False
             if self.board.get_square(tmp, insX) != team:
                 return False
-            tmp -= 1
         return True
 
     def check_south(self, insY: int, insX: int, team: str) -> bool:
         tmp = insY
         for ind in range(3):
-            if tmp == self.board.get_length() - 1:
+            tmp += 1
+            if tmp == self.board.get_length():
                 return False
             if self.board.get_square(tmp, insX) != team:
                 return False
-            tmp += 1
         return True
 
     def check_east(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         for ind in range(3):
-            if tmp == self.board.get_width() - 1:
+            tmp += 1
+            if tmp == self.board.get_width():
                 return False
             if self.board.get_square(insY, tmp) != team:
                 return False
-            tmp += 1
         return True
 
     def check_west(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         for ind in range(3):
+            tmp -= 1
             if tmp == 0:
                 return False
             if self.board.get_square(insY, tmp) != team:
                 return False
-            tmp -= 1
         return True
 
     def check_north_east(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
         for ind in range(3):
-            if tmp2 == 0 or tmp == self.board.get_width() - 1:
+            tmp += 1
+            tmp2 -= 1
+            if tmp2 == 0 or tmp == self.board.get_width():
                 return False
             if self.board.get_square(tmp2, tmp) != team:
                 return False
-            tmp -= 1
-            tmp2 += 1
         return True
 
     def check_north_west(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
         for ind in range(3):
+            tmp -= 1
+            tmp2 -= 1
             if tmp == 0 or tmp2 == 0:
                 return False
             if self.board.get_square(tmp2, tmp) != team:
                 return False
-            tmp -= 1
-            tmp2 -= 1
         return True
 
     def check_south_west(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
         for ind in range(3):
+            tmp -= 1
+            tmp2 += 1
             if tmp == 0 or tmp2 == self.board.get_length():
                 return False
             if self.board.get_square(tmp2, tmp) != team:
                 return False
-            tmp += 1
-            tmp2 -= 1
         return True
 
     def check_south_east(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
         for ind in range(3):
-            if tmp == self.board.get_width() or tmp2 == self.board.get_length():
-                return True
-            if self.board.get_square(insY, insY) != team:
-                return False
             tmp += 1
             tmp2 += 1
+            if tmp == self.board.get_width() or tmp2 == self.board.get_length():
+                return False
+            if self.board.get_square(insY, insY) != team:
+                return False
         return True
             
         

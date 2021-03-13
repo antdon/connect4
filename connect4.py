@@ -47,7 +47,8 @@ class Play:
     def play_again(self) -> bool:
         playAgain: str = input("would you like to play again y/n: ")
         if playAgain == "y":
-            self.new_game()
+            self.board = self.new_game()
+            self.utilities = Utility(self.board)
             return True
         else:
             quit()

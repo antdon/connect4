@@ -88,14 +88,29 @@ class Utility:
                 return False
         return True
 
+    #check_east backchecks for the horizontal line
     def check_east(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
+        atEnd: bool = False
+        count: int = 0
         for ind in range(3):
             tmp += 1
             if tmp == self.board.get_width():
-                return False
+                atEnd = True
+                break
             if self.board.get_square(insY, tmp) != team:
-                return False
+                atEnd = True
+                break
+            else:
+                count += 1
+        if atEnd:
+            tmp = insX 
+            for ind in range(3-count):
+                tmp -= 1
+                if tmp == 0:
+                    return False
+                if self.board.get_square(insY, tmp) != team:
+                    return False
         return True
 
     def check_west(self, insY: int, insX: int, team: str) -> bool:
@@ -132,28 +147,63 @@ class Utility:
                 return False
         return True
 
+    #check_south_west backchecks its diagonal
     def check_south_west(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
+        count: int = 0
+        atEnd: bool = False
         for ind in range(3):
             tmp -= 1
             tmp2 += 1
             if tmp == 0 or tmp2 == self.board.get_length():
-                return False
+                atEnd = True
+                break
             if self.board.get_square(tmp2, tmp) != team:
-                return False
+                atEnd = True
+                break
+            else:
+                count += 1
+        if atEnd:
+            tmp = insX
+            tmp2 = insY
+            for ind in range(3-count):
+                tmp += 1
+                tmp2 -= 1
+                if tmp == self.board.get_width() or tmp2 == 0:
+                    return False
+                if self.board.get_square(tmp2, tmp) != team:
+                    return False
         return True
 
+
+    # check_south_east backchecks it's diagonal
     def check_south_east(self, insY: int, insX: int, team: str) -> bool:
         tmp = insX
         tmp2 = insY
+        count: int = 0
+        atEnd: bool = False
         for ind in range(3):
             tmp += 1
             tmp2 += 1
             if tmp == self.board.get_width() or tmp2 == self.board.get_length():
-                return False
+                atEnd = True
+                break
             if self.board.get_square(tmp2, tmp) != team:
-                return False
+                atEnd = True
+                break
+            else:
+                count += 1
+        if atEnd:
+            tmp = insX
+            tmp2 = insY
+            for ind in range(3-count):
+                tmp -= 1
+                tmp2 -= 1
+                if tmp == 0 or tmp2 == 0:
+                    return False
+                if self.board.get_square(tmp2, tmp) != team:
+                    return False
         return True
             
         

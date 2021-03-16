@@ -27,6 +27,8 @@ class Play:
         print(f"\n{team}'s turn")
         while notValid:
             column = input("pick a column to place a tile in: ")
+            if column == "":
+                continue
             if ord(column.upper()) >= ord('A') and ord(column.upper()) - ord('A') <= self.board.get_width() -1:
                 notValid = False
         indX = int(ord(column.upper()) - ord('A'))
@@ -40,12 +42,25 @@ class Play:
         return win
 
     def new_game(self) -> None:
-        length = input("how long would you like your game board to be: ")
-        width = input("how wide would you like your game board to be: ")
+        notValid: bool = True
+        notValid2: bool = True
+        while notValid:
+            length = input("how long would you like your game board to be (> 4): ")
+            if length.isdigit() and int(length) > 4:
+                notValid = False
+        while notValid2:
+            width = input("how wide would you like your game board to be (> 4): ")
+            if width.isdigit() and int(width) > 4:
+                notValid2 = False
         return Board(int(length), int(width))
 
     def play_again(self) -> bool:
-        playAgain: str = input("would you like to play again y/n: ")
+        notValid: bool = True
+        while notValid:
+            playAgain: str = input("would you like to play again y/n: ")
+            playAgain = playAgain.lower()
+            if playAgain == "y" or playAgain == "n":
+                notValid = False
         if playAgain == "y":
             self.board = self.new_game()
             self.utilities = Utility(self.board)

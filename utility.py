@@ -2,18 +2,17 @@ from board import *
 from typing import List, Set, Dict, Tuple, Optional
 
 class Utility:
-    def __init__(self, board):
-        self.board = board
+    def __init__(self, board: List[List]) -> None:
+        self.board: Board = board
 
-    def check_full(self, xInd):
-        board = self.board 
-        if board[0][xInd] == '-':
+    def check_full(self, xInd: int) -> None:
+        if self.board[0][xInd] == '-':
             return False
         else:
             return True
 
     def check_if_edge(self, insY: int, insX: int) -> List[str]:
-        edgeCollisions = []
+        edgeCollisions: List[str] = []
         if insY == 0:
             edgeCollisions.append('N')
         elif insY == self.board.get_length() - 1:
@@ -27,7 +26,7 @@ class Utility:
     
     def check_win(self, insY: int, insX: int, team: str) -> bool:
         dontCheck: List[str] = self.check_if_edge(insY, insX)
-        potentialDirections = self.check_potential_win_directions(insY, insX, dontCheck, team)
+        potentialDirections: List[str] = self.check_potential_win_directions(insY, insX, dontCheck, team)
         for direction in potentialDirections:
             if direction == 'N' and self.check_north(insY, insX, team):
                 return True
@@ -49,7 +48,7 @@ class Utility:
 
 
     def check_potential_win_directions(self, insY: int, insX: int, dontCheck: List[str], team: str) -> List[str]:
-        potentialDirections = []
+        potentialDirections: List[str] = []
         if not 'W' in dontCheck and self.board.get_square(insY, insX - 1) == team:
             potentialDirections.append('W')
         if not 'E' in dontCheck and self.board.get_square(insY, insX + 1) == team:
@@ -69,7 +68,7 @@ class Utility:
         return potentialDirections
 
     def check_north(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insY
+        tmp: int = insY
         for ind in range(3):
             tmp -= 1
             if tmp == 0:
@@ -79,7 +78,7 @@ class Utility:
         return True
 
     def check_south(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insY
+        tmp: int = insY
         for ind in range(3):
             tmp += 1
             if tmp == self.board.get_length():
@@ -90,7 +89,7 @@ class Utility:
 
     #check_east backchecks for the horizontal line
     def check_east(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
+        tmp: int = insX
         atEnd: bool = False
         count: int = 0
         for ind in range(3):
@@ -114,7 +113,7 @@ class Utility:
         return True
 
     def check_west(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
+        tmp: int = insX
         for ind in range(3):
             tmp -= 1
             if tmp == 0:
@@ -124,8 +123,8 @@ class Utility:
         return True
 
     def check_north_east(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
-        tmp2 = insY
+        tmp: int = insX
+        tmp2: int = insY
         for ind in range(3):
             tmp += 1
             tmp2 -= 1
@@ -136,8 +135,8 @@ class Utility:
         return True
 
     def check_north_west(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
-        tmp2 = insY
+        tmp: int = insX
+        tmp2: int = insY
         for ind in range(3):
             tmp -= 1
             tmp2 -= 1
@@ -149,8 +148,8 @@ class Utility:
 
     #check_south_west backchecks its diagonal
     def check_south_west(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
-        tmp2 = insY
+        tmp: int = insX
+        tmp2: int = insY
         count: int = 0
         atEnd: bool = False
         for ind in range(3):
@@ -179,8 +178,8 @@ class Utility:
 
     # check_south_east backchecks it's diagonal
     def check_south_east(self, insY: int, insX: int, team: str) -> bool:
-        tmp = insX
-        tmp2 = insY
+        tmp: int = insX
+        tmp2: int = insY
         count: int = 0
         atEnd: bool = False
         for ind in range(3):

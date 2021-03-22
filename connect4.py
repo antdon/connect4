@@ -3,11 +3,11 @@ from utility import *
 import pdb
 
 class Play:
-    def __init__(self):
-        self.board = self.new_game() 
-        self.utilities = Utility(self.board)
+    def __init__(self) -> None:
+        self.board: Board = self.new_game() 
+        self.utilities: Utility = Utility(self.board)
 
-    def play(self):
+    def play(self) -> None:
         stillPlaying: bool = True
         notOver: bool = True
         while stillPlaying:
@@ -24,14 +24,16 @@ class Play:
     def turn(self, team: str) -> bool:
         win: bool = False
         notValid: bool = True
+        insX: int
+        insY: int
         print(f"\n{team}'s turn")
         while notValid:
             column = input("pick a column to place a tile in: ")
-            if column == "":
+            if len(column) == 0 or len(column) > 1:
                 continue
             if ord(column.upper()) >= ord('A') and ord(column.upper()) - ord('A') <= self.board.get_width() -1:
                 notValid = False
-        indX = int(ord(column.upper()) - ord('A'))
+        indX: int = int(ord(column.upper()) - ord('A'))
         [insX, insY] = self.board.insert_piece(team, indX)
         self.board.print_board()
         if [insX, insY] == [-1, -1]:
@@ -41,15 +43,15 @@ class Play:
             print(f"\nCongratulations {team} you won")
         return win
 
-    def new_game(self) -> None:
+    def new_game(self) -> Board:
         notValid: bool = True
         notValid2: bool = True
         while notValid:
-            length = input("how long would you like your game board to be (> 4): ")
+            length: str = input("how long would you like your game board to be (> 4): ")
             if length.isdigit() and int(length) > 4:
                 notValid = False
         while notValid2:
-            width = input("how wide would you like your game board to be (> 4): ")
+            width: str = input("how wide would you like your game board to be (> 4): ")
             if width.isdigit() and int(width) > 4:
                 notValid2 = False
         return Board(int(length), int(width))
@@ -67,11 +69,8 @@ class Play:
             return True
         else:
             quit()
+            return False
 
     
     
 
-
-
-p = Play()
-p.play()

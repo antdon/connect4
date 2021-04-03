@@ -3,11 +3,16 @@ from utility import *
 import pdb
 
 class Play:
+    """
+    Contains exclusively functions called by run.py
+    """
     def __init__(self) -> None:
+        """initialise a new board and a new utility class taking the board as a parameter"""
         self.board: Board = self.new_game() 
         self.utilities: Utility = Utility(self.board)
 
     def play(self) -> None:
+        """Play an instance of the game"""
         stillPlaying: bool = True
         notOver: bool = True
         while stillPlaying:
@@ -22,6 +27,13 @@ class Play:
 
 
     def turn(self, team: str) -> bool:
+        """
+        Represents one players turn
+        Parameters:
+            team - string representing the team of the player
+        Return:
+            Returns whether the player won the game in this turn
+        """
         win: bool = False
         notValid: bool = True
         insX: int
@@ -44,6 +56,11 @@ class Play:
         return win
 
     def new_game(self) -> Board:
+        """
+        Creates a new game with a board of a inputted size
+        Return:
+            The board of the new game
+        """
         notValid: bool = True
         notValid2: bool = True
         while notValid:
@@ -57,6 +74,12 @@ class Play:
         return Board(int(length), int(width))
 
     def play_again(self) -> bool:
+        """
+        Gives player option to player again and if yes reinitialises the game board and utility function
+        Return:
+            True if player chooses to play again
+            False otherwise
+        """
         notValid: bool = True
         while notValid:
             playAgain: str = input("would you like to play again y/n: ")

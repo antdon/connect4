@@ -10,9 +10,7 @@ class Board:
         """
         self.length: int = length
         self.width: int = width
-        self.board: List[List] = 
-            [['-' for i in range(self.width)]
-                    for j in range(self.length)]
+        self.board: List[List] = [['-' for i in range(self.width)] for j in range(self.length)]
         self.utilities: Utility = Utility(self.board)
 
     def insert_piece(self, team: str, xInd) -> List[int]:

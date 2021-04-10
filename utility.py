@@ -59,8 +59,7 @@ class Utility:
             False if win has not been achieved
         """
         dontCheck: List[str] = self.check_if_edge(insY, insX)
-        potentialDirections: List[str] =
-        self.check_potential_win_directions(insY, insX, dontCheck, team)
+        potentialDirections: List[str] = self.check_potential_win_directions(insY, insX, dontCheck, team)
         for direction in potentialDirections:
             if direction == 'N' and self.check_north(insY, insX, team):
                 return True
@@ -70,17 +69,13 @@ class Utility:
                 return True
             elif direction == 'W' and self.check_west(insY,  insX, team):
                 return True
-            elif direction == 'NE' and 
-                    self.check_north_east(insY,  insX, team):
+            elif direction == 'NE' and self.check_north_east(insY,  insX, team):
                 return True
-            elif direction == 'NW' and 
-                    self.check_north_west(insY,  insX, team):
+            elif direction == 'NW' and self.check_north_west(insY,  insX, team):
                 return True
-            elif direction == 'SE' and 
-                    self.check_south_east(insY,  insX, team):
+            elif direction == 'SE' and self.check_south_east(insY,  insX, team):
                 return True
-            elif direction == 'SW' and 
-                    self.check_south_west(insY,  insX, team):
+            elif direction == 'SW' and self.check_south_west(insY,  insX, team):
                 return True
         return False
 
@@ -104,33 +99,21 @@ class Utility:
             placed piece lie
         """
         potentialDirections: List[str] = []
-        if not 'W' in dontCheck and 
-                self.board.get_square(insY, insX - 1) == team:
+        if not 'W' in dontCheck and self.board.get_square(insY, insX - 1) == team:
             potentialDirections.append('W')
-        if not 'E' in dontCheck and 
-                self.board.get_square(insY, insX + 1) == team:
+        if not 'E' in dontCheck and self.board.get_square(insY, insX + 1) == team:
             potentialDirections.append('E')
-        if not 'N' in dontCheck and 
-                self.board.get_square(insY - 1, insX) == team:
+        if not 'N' in dontCheck and self.board.get_square(insY - 1, insX) == team:
             potentialDirections.append('N')
-        if not 'S' in dontCheck and 
-                self.board.get_square(insY + 1, insX) == team:
+        if not 'S' in dontCheck and self.board.get_square(insY + 1, insX) == team:
             potentialDirections.append('S')
-        if not 'N' in dontCheck and 
-                not 'E' in dontCheck and 
-                    self.board.get_square(insY - 1, insX + 1) == team:
+        if not 'N' in dontCheck and not 'E' in dontCheck and self.board.get_square(insY - 1, insX + 1) == team:
             potentialDirections.append('NE')
-        if not 'S' in dontCheck and 
-                not 'E' in dontCheck and 
-                    self.board.get_square(insY + 1, insX + 1) == team:
+        if not 'S' in dontCheck and not 'E' in dontCheck and self.board.get_square(insY + 1, insX + 1) == team:
             potentialDirections.append('SE')
-        if not 'S' in dontCheck and 
-                not 'W' in dontCheck and 
-                    self.board.get_square(insY + 1, insX - 1) == team:
+        if not 'S' in dontCheck and not 'W' in dontCheck and self.board.get_square(insY + 1, insX - 1) == team:
             potentialDirections.append('SW')
-        if not 'N' in dontCheck and 
-                not 'W' in dontCheck and 
-                    self.board.get_square(insY - 1, insX - 1) == team:
+        if not 'N' in dontCheck and not 'W' in dontCheck and self.board.get_square(insY - 1, insX - 1) == team:
             potentialDirections.append('NW')
         return potentialDirections
 
@@ -332,8 +315,7 @@ class Utility:
         for ind in range(3):
             tmp += 1
             tmp2 += 1
-            if tmp == self.board.get_width() or 
-                    tmp2 == self.board.get_length():
+            if tmp == self.board.get_width() or tmp2 == self.board.get_length():
                 atEnd = True
                 break
             if self.board.get_square(tmp2, tmp) != team:
